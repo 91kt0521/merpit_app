@@ -13,9 +13,49 @@ class CreateAppTables extends Migration
      */
     public function up()
     {
-        Schema::create('app_tables', function (Blueprint $table) {
+        Schema::create('primary_categories', function (Blueprint $table) {
             $table->id();
+
+            // ここにカラムを追加
+
             $table->timestamps();
+        });
+
+        Schema::create('secondary_categories', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('primary_category_id');
+
+            // ここにカラムを追加
+
+            $table->timestamps();
+
+            $table->foreign('primary_category_id')->references('id')->on('primary_categories');
+        });
+
+        Schema::create('item_conditions', function (Blueprint $table) {
+            $table->id();
+
+            // ここにカラムを追加
+
+            $table->timestamps();
+        });
+
+        Schema::create('items', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('seller_id');
+            $table->unsignedBigInteger('buyer_id');
+            $table->unsignedBigInteger('secondary_category_id');
+            $table->unsignedBigInteger('item_condition_id');
+
+            // ここにカラムを追加
+
+            $table->timestamps();
+
+            $table->foreign('seller_id')->references('id')->on('users');
+            $table->foreign('buyer_id')->references('id')->on('users');
+            $table->foreign('secondary_category_id')->references('id')->on('secondary_categories');
+            $table->foreign('item_condition_id')->references('id')->on('item_conditions');
+
         });
     }
 
@@ -26,6 +66,9 @@ class CreateAppTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('app_tables');
+        Schema::dropIfExists('items');
+        Schema::dropIfExists('item_conditions');
+        Schema::dropIfExists('secondary_categories');
+        Schema::dropIfExists('primary_categories');
     }
 }
