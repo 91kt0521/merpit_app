@@ -15,35 +15,17 @@ ENV TZ=UTC \
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update && \
-  apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales && \
+  apt-get -y install git libicu-dev libonig-dev libzip-dev unzip libfreetype6-dev libjpeg62-turbo-dev libpng-dev locales && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   locale-gen en_US.UTF-8 && \
   localedef -f UTF-8 -i en_US en_US.UTF-8 && \
   mkdir /var/run/php-fpm && \
   docker-php-ext-install intl pdo_mysql zip bcmath && \
+  docker-php-ext-configure gd --with-freetype --with-jpeg && \
+  docker-php-ext-install -j$(nproc) gd && \
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.org
-  
-ENV NODE_VERSION 15.0.1
-  
-# RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
-#     && case "${dpkgArch##*-}" in \
-#     amd64) ARCH='x64';; \
-#     ppc64el) ARCH='ppc64le';; \
-#     s390x) ARCH='s390x';; \
-#     arm64) ARCH='arm64';; \
-#     armhf) ARCH='armv7l';; \
-#     i386) ARCH='x86';; \
-#     *) echo "unsupported architecture"; exit 1 ;; \
-#     esac \
-#     && set -ex \
-#     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
-#     && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-#     && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
-#     && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-#     && node --version \
-#     && npm --version
     
 # Install Node.js 13
 RUN curl -sL https://deb.nodesource.com/setup_13.x | bash - \
