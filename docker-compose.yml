@@ -10,6 +10,8 @@ services:
     volumes:
       - php-fpm-socket:/var/run/php-fpm
       - ./backend:/work/backend
+      - ./backend/node_modules-store:/work/backend/node_modules
+
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=db

@@ -20,3 +20,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('mypage')
+    ->namespace('App\Http\Controllers\MyPage')
+    ->middleware('auth')
+    ->group(function() {
+        Route::get('/edit-profile', 'ProfileController@showProfileEditForm')->name('mypage.edit-profile');
+        Route::post('/edit-profile', 'ProfileController@editProfile')->name('mypage.edit-profile');
+    });
