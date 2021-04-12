@@ -61,7 +61,7 @@
 
                     {{-- カテゴリ --}}
                     <div class="form-group mt-3">
-                        <label for="category">商品名</label>
+                        <label for="category">カテゴリ</label>
                         <select id="category" class="custom-select form-control @error('category') is-invalid @enderror">
                             {{-- 次のパートで実装します --}}
                         </select>
@@ -76,7 +76,11 @@
                     <div class="form-group mt-3">
                         <label for="condition">商品の状態</label>
                         <select name="condition" class="custom-select form-control @error('condition') is-invalid @enderror">
-                            {{-- 次のパートで実装します --}}
+                            @foreach($conditions as $condition)
+                                <option value="{{ $condition->id}}" {{old('condition') == $condition->id ? 'selected' : ''}}>
+                                    {{ $condition->name }}
+                                </option>
+                            @endforeach
                         </select>
                         @error('condition')
                         <span class="invalid-feedback" role="alert">
