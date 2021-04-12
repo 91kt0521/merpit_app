@@ -64,6 +64,15 @@
                         <label for="category">カテゴリ</label>
                         <select id="category" class="custom-select form-control @error('category') is-invalid @enderror">
                             {{-- 次のパートで実装します --}}
+                            @foreach($categories as $category)
+                                <optgroup label={{$category->name}}>
+                                    @foreach($category->secondaryCategories as $secondary)
+                                        <option value="$cecondary->id" {{ old("category") == $secondary->id }}>
+                                            {{ $secondary->name }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
                         </select>
                         @error('category')
                         <span class="invalid-feedback" role="alert">
