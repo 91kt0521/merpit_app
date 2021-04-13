@@ -9,7 +9,15 @@ use Illuminate\Http\Request;
 class SellController extends Controller
 {
     public function showSellForm() {
-        $categories = PrimaryCategory::orderBy('sort_no')->get();
+        // Eager Loading(with)を使用してN+1を解決
+        $categories = PrimaryCategory::query()
+            ->with([
+                'secondaryCategories' => function ($query){
+                    $query->orderBy('sort_no');
+                }
+            ])
+            ->orderBy('sort_no')
+            ->get();
         $conditions = ItemCondition::orderBy('sort_no')->get();
 
         return view('sell')
