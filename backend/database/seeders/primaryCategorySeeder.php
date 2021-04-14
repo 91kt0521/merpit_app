@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\PrimaryCategory;
 use Carbon\Factory;
 
-class primaryCategorySeeder extends Seeder
+class PrimaryCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
