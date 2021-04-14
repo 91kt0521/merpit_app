@@ -62,12 +62,11 @@
                     {{-- カテゴリ --}}
                     <div class="form-group mt-3">
                         <label for="category">カテゴリ</label>
-                        <select id="category" class="custom-select form-control @error('category') is-invalid @enderror">
-                            {{-- 次のパートで実装します --}}
+                        <select name="category" class="custom-select form-control @error('category') is-invalid @enderror">
                             @foreach($categories as $category)
                                 <optgroup label={{$category->name}}>
                                     @foreach($category->secondaryCategories as $secondary)
-                                        <option value="$cecondary->id" {{ old("category") == $secondary->id }}>
+                                        <option value="{{ $secondary->id }}" {{ old("category") == $secondary->id ? 'selected' : '' }}>
                                             {{ $secondary->name }}
                                         </option>
                                     @endforeach
