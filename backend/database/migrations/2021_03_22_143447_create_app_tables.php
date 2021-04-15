@@ -60,7 +60,7 @@ class CreateAppTables extends Migration
 
             $table->timestamps();
 
-            $table->foreign('sell_id')->references('id')->on('users');
+            $table->foreign('seller_id')->references('id')->on('users');
             $table->foreign('buyer_id')->references('id')->on('users');
             $table->foreign('secondary_category_id')->references('id')->on('secondary_categories');
             $table->foreign('item_condition_id')->references('id')->on('item_conditions');

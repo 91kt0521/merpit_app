@@ -41,7 +41,7 @@ class SellController extends Controller
         $item = new Item;
 
         $item->image_file_name       = $imageName;
-        $item->sell_id               = $user->id;
+        $item->seller_id               = $user->id;
         $item->name                  = $request->input('name');
         $item->description           = $request->input('description');
         $item->secondary_category_id = $request->input('category');
