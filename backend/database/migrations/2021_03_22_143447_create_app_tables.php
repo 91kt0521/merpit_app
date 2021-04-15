@@ -47,7 +47,7 @@ class CreateAppTables extends Migration
 
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sell_id');
+            $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('buyer_id')->nullable();
             $table->unsignedBigInteger('secondary_category_id');
             $table->unsignedBigInteger('item_condition_id');
