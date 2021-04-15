@@ -25,6 +25,7 @@ Route::middleware('auth')
     ->namespace('App\Http\Controllers')
     ->group(function() {
         Route::get('sell', 'SellController@showSellForm')->name('sell');
+        Route::post('sell', 'SellController@sellItem')->name('sell');
     });
 
 Route::prefix('mypage')
