@@ -24,4 +24,8 @@ class Item extends Model
     public function getIsStateSellingAttribute() {
         return $this->state === self::STATE_SELLING;
     }
+
+    public function getIsStateBoughtAttribute() {
+        return $this->state === self::STATE_BOUGHT;
+    }
 }
