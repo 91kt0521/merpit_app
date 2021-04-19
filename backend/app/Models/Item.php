@@ -14,4 +14,14 @@ class Item extends Model
 
     // 購入済み
     const STATE_BOUGHT = 'bought';
+
+    // 多対1
+    public function secondaryCategory() {
+        return $this->belongsTo(SecondaryCategory::class);
+    }
+
+    // isStateSellingでメソッドを参照できる
+    public function getIsStateSellingAttribute() {
+        return $this->state === self::STATE_SELLING;
+    }
 }
