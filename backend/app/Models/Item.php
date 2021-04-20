@@ -20,6 +20,16 @@ class Item extends Model
         return $this->belongsTo(SecondaryCategory::class);
     }
 
+    // 多対1
+    public function seller() {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    // 多対1
+    public function condition() {
+        return $this->belongsTo(ItemCondition::class, 'item_condition_id');
+    }
+
     // isStateSellingでメソッドを参照できる
     public function getIsStateSellingAttribute() {
         return $this->state === self::STATE_SELLING;
