@@ -41,7 +41,6 @@ class Header extends Component
             'category' => Request::input('category'),
             'keyword' => Request::input('keyword'),
         ];
-        var_dump($defaults);
 
         return view('components.header')
             ->with('user', $user)
