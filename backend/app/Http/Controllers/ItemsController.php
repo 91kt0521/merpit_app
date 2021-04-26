@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class ItemsController extends Controller
 {
+    public function showBuyItemForm(Item $item) {
+        if (!$item->isStateSelling) {
+            // HTTPステータスコード404(Not Found)を返す
+            abort(404);
+        }
+
+        return view('items.item_buy_form')
+            ->with('item', $item);
+    }
+
     public function showItems(Request $request) {
 
         $query = Item::query();
