@@ -11,6 +11,11 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // userとitemで1対多のリレーションを定義
+    public function soldItems() {
+        return $this->hasMany(Item::class, 'seller_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,4 +45,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function boughtItems() {
+        return $this->hasMany(Item::class, 'buyer_id');
+    }
 }

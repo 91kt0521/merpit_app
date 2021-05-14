@@ -13,17 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('top');
+Route::get('', 'App\Http\Controllers\ItemsController@showItems')->name('top');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('items/{item}', 'App\Http\Controllers\ItemsController@showItemDetaile')->name('item');
 
 Route::middleware('auth')
     ->namespace('App\Http\Controllers')
     ->group(function() {
+        Route::get('/items/{item}/buy', 'ItemsController@showBuyItemForm')->name('item.buy');
+        Route::post('/items/{item}/buy', 'ItemsController@buyItem')->name('item.buy');
         Route::get('sell', 'SellController@showSellForm')->name('sell');
         Route::post('sell', 'SellController@sellItem')->name('sell');
     });
@@ -34,4 +34,6 @@ Route::prefix('mypage')
     ->group(function() {
         Route::get('/edit-profile', 'ProfileController@showProfileEditForm')->name('mypage.edit-profile');
         Route::post('/edit-profile', 'ProfileController@editProfile')->name('mypage.edit-profile');
+        Route::get('/bought-items', 'BoughtItemsController@showBoughtItems')->name('mypage.bought-items');
+        Route::get('/sold-items', 'SoldItemsController@showSoldItems')->name('mypage.sold-items');
     });
